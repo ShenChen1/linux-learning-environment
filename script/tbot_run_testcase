@@ -1,0 +1,8 @@
+#!/bin/sh
+
+. $(dirname $0)/system.conf
+
+
+command_str="/testcases/run_all_testcases"
+
+$(dirname $0)/tbot_start_docker "$command_str"

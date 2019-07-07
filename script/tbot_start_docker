@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. $(dirname $0)/system.conf
+
+
+command_str="$1"
+
+if [ x"$command_str" = "x" ]; then
+    command_str="bash"
+fi
+
+mkdir -p $project_tbot_dir/log
+
+docker run -it --rm                                  \
+           -v $topdir:/linux_learning_environment    \
+           -v $project_tbot_dir:/testcases           \
+           -v $project_tbot_dir/log:/log             \
+           $project_tbot_docker_image                \
+           "$command_str"

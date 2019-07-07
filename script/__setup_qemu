@@ -1,0 +1,19 @@
+#!/bin/sh
+
+. $(dirname $0)/system.conf
+
+
+software_dir=$topdir/software
+
+mkdir -p $software_dir
+
+if [ ! -d "$qemu_dir" ]; then
+    echo "start compile qemu..."
+    cd $software_dir &&              \
+    git clone $qemu_url &&           \
+    cd $qemu_dir &&                  \
+    ./configure &&                   \
+    make
+else
+    echo "qemu dir: $qemu_dir has existed"
+fi

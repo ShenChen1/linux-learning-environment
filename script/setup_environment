@@ -1,0 +1,26 @@
+#!/bin/sh
+
+setup_scripts_dir=$(dirname $0)
+
+
+if ! $setup_scripts_dir/check_host_environment; then
+    exit $?
+fi
+
+$setup_scripts_dir/__setup_buildroot
+if [ "$?" != "0" ]; then
+    echo "ERROR: setup buildroot"
+    exit 1
+fi
+
+$setup_scripts_dir/__setup_qemu
+if [ "$?" != "0" ]; then
+    echo "ERROR: setup qemu"
+    exit 1
+fi
+
+$setup_scripts_dir/__setup_sshpass
+if [ "$?" != "0" ]; then
+    echo "ERROR: setup sshpass"
+    exit 1
+fi

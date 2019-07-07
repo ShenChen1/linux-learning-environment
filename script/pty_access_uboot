@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. $(dirname $0)/system.conf
+
+
+if [ ! -x $pty_connecter_dir/pty_connecter ]; then
+    echo "ERROR: Have not install the pty_connecter?"
+    echo "Try: ./script/__setup_pty_connecter"
+    exit 1
+fi
+
+$pty_connecter_dir/pty_connecter $topdir/script/board_uboot.tty

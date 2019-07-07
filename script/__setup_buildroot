@@ -1,0 +1,26 @@
+#!/bin/sh
+
+. $(dirname $0)/system.conf
+
+
+software_dir=$topdir/software
+
+mkdir -p $software_dir
+
+if [ -d $software_dir/tarballs ]; then
+    cd $software_dir/tarballs && git pull
+else
+    git clone https://gitee.com/guolinp/sources.git $software_dir/tarballs
+fi
+
+if [ ! -d "$buildroot_dir" ]; then
+    echo "start compile buildroot..."
+    cd $software_dir &&                   \
+    git clone $buildroot_url &&           \
+    cd $buildroot_dir &&                  \
+    ln -s $software_dir/tarballs dl &&    \
+    make qemu_arm_vexpress_defconfig &&   \
+    make
+else
+    echo "buildroot dir: $buildroot_dir has existed"
+fi
